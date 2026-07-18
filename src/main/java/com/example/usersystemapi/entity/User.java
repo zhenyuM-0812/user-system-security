@@ -28,4 +28,15 @@ public class User {
     @Column(nullable=false)
     private String department;
 
+    @Column(nullable=false)
+    private String username;
+
+    @Column(nullable=false,length = 100)
+    private String password;
+
+    @Column(nullable=false)
+    private String role;
+
+    @Column(nullable=false)
+    private Boolean active;
 }
