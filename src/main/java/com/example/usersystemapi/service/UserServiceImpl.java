@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService{
                 .phoneNumber(request.getPhoneNumber())
                 .age(request.getAge())
                 .department(request.getDepartment())
+                .username(request.getUsername())
+                .role(request.getRole())
+                .active(request.getActive())
                 .build();
         User saved = userRepository.save(user);
         return toResponseDto(saved);
@@ -99,7 +102,9 @@ public class UserServiceImpl implements UserService{
         user.setAge(request.getAge());
         user.setPhoneNumber(request.getPhoneNumber());
         user.setDepartment(request.getDepartment());
-
+        user.setUsername(request.getUsername());
+        user.setRole(request.getRole());
+        user.setActive(request.getActive());
         User updated = userRepository.save(user);
         return toResponseDto(updated);
     }
@@ -118,6 +123,9 @@ public class UserServiceImpl implements UserService{
                 .phoneNumber(user.getPhoneNumber())
                 .age(user.getAge())
                 .department(user.getDepartment())
+                .username(user.getUsername())
+                .role(user.getRole())
+                .active(user.getActive())
                 .build();
     }
 

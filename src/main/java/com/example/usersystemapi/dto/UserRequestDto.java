@@ -35,7 +35,7 @@ public class UserRequestDto {
 
 
     @NotNull(message = "Active status is required")
-    private String active;
+    private Boolean active;
 
     @Pattern(regexp="USER|ADMIN",message = "Role must be USER or ADMIN")
     private String role;
