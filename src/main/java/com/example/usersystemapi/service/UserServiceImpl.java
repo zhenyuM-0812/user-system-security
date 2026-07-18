@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService{
                 .age(request.getAge())
                 .department(request.getDepartment())
                 .username(request.getUsername())
+                .password((request.getPassword()))
                 .role(request.getRole())
                 .active(request.getActive())
                 .build();
@@ -103,6 +104,7 @@ public class UserServiceImpl implements UserService{
         user.setPhoneNumber(request.getPhoneNumber());
         user.setDepartment(request.getDepartment());
         user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
         user.setRole(request.getRole());
         user.setActive(request.getActive());
         User updated = userRepository.save(user);
