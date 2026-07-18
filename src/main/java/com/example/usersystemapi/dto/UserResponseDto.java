@@ -20,4 +20,12 @@ public class UserResponseDto {
 
     private String department;
 
+    private String username;
+
+    private String role;
+
+    private Boolean active;
+
+
+
 }

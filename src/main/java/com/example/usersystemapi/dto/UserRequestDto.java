@@ -1,9 +1,6 @@
 package com.example.usersystemapi.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -27,6 +24,21 @@ public class UserRequestDto {
 
     @NotBlank(message = "Department is required")
     private String department;
+
+    @NotBlank(message = "username is required")
+    @Size(max=40, message = "username can not over 50 characters")
+    private String username;
+
+    @NotBlank(message = "pwd is required")
+    @Size(max=100, message = "pwd can not exceed 100 characters")
+    private String password;
+
+
+    @NotNull(message = "Active status is required")
+    private String active;
+
+    @Pattern(regexp="USER|ADMIN",message = "Role must be USER or ADMIN")
+    private String role;
 
 
 }
