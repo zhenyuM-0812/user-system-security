@@ -9,6 +9,7 @@ import com.example.usersystemapi.exception.NotFoundException;
 import com.example.usersystemapi.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +19,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordencoder;
 
 
     @Override
     @Transactional
     public UserResponseDto createUser(UserRequestDto request){
+
         userRepository.findByPhoneNumber(request.getPhoneNumber()).ifPresent(
                 existing ->{
                     throw new DuplicateUserException(
                             "User with number "+ request.getPhoneNumber() + "already exists"
+                    );
+                }
+        );
+
+        userRepository.findByUsername(request.getUsername()).ifPresent(
+                existing ->{
+                    throw new DuplicateUserException(
+                            "User with username " + request.getUsername() + "already exists"
                     );
                 }
         );
@@ -37,7 +48,7 @@ public class UserServiceImpl implements UserService{
                 .age(request.getAge())
                 .department(request.getDepartment())
                 .username(request.getUsername())
-                .password((request.getPassword()))
+                .password(passwordencoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .active(request.getActive())
                 .build();
@@ -104,7 +115,7 @@ public class UserServiceImpl implements UserService{
         user.setPhoneNumber(request.getPhoneNumber());
         user.setDepartment(request.getDepartment());
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordencoder.encode(request.getPassword()));
         user.setRole(request.getRole());
         user.setActive(request.getActive());
         User updated = userRepository.save(user);
